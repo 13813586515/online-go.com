@@ -14,64 +14,404 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 .AchievementList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.AchievementCategory {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    i {
+        font-size: 1rem;
+        width: 1.25rem;
+        text-align: center;
+    }
+
+    .category-name {
+        font-weight: 600;
+        flex-grow: 1;
+    }
+
+    .category-count {
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+
+    .toggle-icon {
+        font-size: 0.75rem;
+        color: #6b7280;
+    }
+}
+
+.category-achievements {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 1.75rem;
 }
 
 .AchievementEntry {
     display: flex;
-    padding-left: 2rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    background-color: rgba(0, 0, 0, 0.02);
 
-    .icon {
+    &.clickable {
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .icon-wrapper {
+        position: relative;
         flex-grow: 0;
         flex-shrink: 0;
+    }
+
+    .icon {
         display: inline-block;
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
         background-size: cover;
+        border-radius: 0.5rem;
+    }
+
+    .rarity-badge {
+        position: absolute;
+        bottom: -0.25rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.625rem;
+        padding: 0.125rem 0.5rem;
+        border-radius: 0.25rem;
+        background-color: white;
+        border: 1px solid;
+        white-space: nowrap;
+        font-weight: 600;
     }
 
     .achievement-info {
         display: flex;
         flex-direction: column;
         margin-left: 1rem;
+        flex-grow: 1;
+        min-width: 0;
 
-        .title {
-            font-weight: bold;
+        .title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+
+            .title {
+                font-weight: bold;
+                font-size: 1rem;
+            }
+
+            .timestamp {
+                font-size: 0.75rem;
+                color: #6b7280;
+                white-space: nowrap;
+            }
         }
 
         .description {
             font-size: smaller;
+            color: #4b5563;
+            margin-top: 0.25rem;
+        }
+
+        .progress-container {
+            position: relative;
+            margin-top: 0.5rem;
+            height: 0.5rem;
+            background-color: #e5e7eb;
+            border-radius: 0.25rem;
+            overflow: hidden;
+
+            .progress-bar {
+                height: 100%;
+                background-color: #3b82f6;
+                border-radius: 0.25rem;
+                transition: width 0.3s ease;
+            }
+
+            .progress-text {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 0.625rem;
+                font-weight: bold;
+                color: #374151;
+            }
+        }
+
+        .link-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: #3b82f6;
+
+            i {
+                font-size: 0.625rem;
+            }
         }
     }
 
-    &.wdc2021, &.wsc2022, &.wsc2023, &.wsc2024 {
+    &.wdc2021,
+    &.wsc2022,
+    &.wsc2023,
+    &.wsc2024 {
         .icon {
-            background-image: url('https://cdn.online-go.com/achievements/wdc2021.png');
+            background-image: url("https://cdn.online-go.com/achievements/wdc2021.png");
         }
     }
-    
+
     &.wsc2025 {
         .icon {
-            background-image: url('https://cdn.online-go.com/achievements/wsc2025-v2.png');
+            background-image: url("https://cdn.online-go.com/achievements/wsc2025-v2.png");
         }
     }
 
     &.wsc2025-grand-slam {
         .icon {
-            background-image: url('https://cdn.online-go.com/achievements/wsc2025-grand-slam-v2.png');
+            background-image: url("https://cdn.online-go.com/achievements/wsc2025-grand-slam-v2.png");
         }
     }
 
     &.wsc2026 {
         .icon {
-            background-image: url('https://cdn.online-go.com/achievements/wsc2026.png');
+            background-image: url("https://cdn.online-go.com/achievements/wsc2026.png");
         }
     }
 
     &.wsc2026-grand-slam {
         .icon {
-            background-image: url('https://cdn.online-go.com/achievements/wsc2026-grand-slam.png');
+            background-image: url("https://cdn.online-go.com/achievements/wsc2026-grand-slam.png");
         }
     }
 
+    &.first-game,
+    &.first-capture,
+    &.first-life {
+        .icon {
+            background-image: url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=simple%20golden%20star%20icon%20for%20beginner%20achievement%20in%20go%20game&image_size=square_hd");
+        }
+    }
+
+    &.winning-streak-5,
+    &.puzzle-master-100,
+    &.comeback-victory {
+        .icon {
+            background-image: url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=silver%20trophy%20cup%20icon%20for%20technical%20achievement%20in%20go%20game&image_size=square_hd");
+        }
+    }
+
+    &.join-group,
+    &.create-club,
+    &.ten-reviews {
+        .icon {
+            background-image: url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=group%20of%20people%20icon%20for%20social%20achievement%20in%20go%20game%20community&image_size=square_hd");
+        }
+    }
+
+    &.instant-win,
+    &.handicap-perfect {
+        .icon {
+            background-image: url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=diamond%20gem%20icon%20legendary%20achievement%20in%20go%20game%20shiny%20precious&image_size=square_hd");
+        }
+    }
+}
+
+.AchievementDetailModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    &.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+        position: relative;
+        background-color: white;
+        border-radius: 1rem;
+        max-width: 28rem;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+
+        .AchievementDetailModal.open & {
+            transform: scale(1);
+        }
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            transition: all 0.2s ease;
+
+            &:hover {
+                color: #374151;
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+    }
+
+    .modal-body {
+        padding: 0 2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .achievement-icon-large {
+            margin-bottom: 1rem;
+
+            .icon {
+                display: inline-block;
+                width: 8rem;
+                height: 8rem;
+                background-size: cover;
+                border-radius: 1rem;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            }
+
+            &.first-game .icon,
+            &.first-capture .icon,
+            &.first-life .icon {
+                background-image: url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=simple%20golden%20star%20icon%20for%20beginner%20achievement%20in%20go%20game&image_size=square_hd");
+            }
+
+            &.winning-streak-5 .icon,
+            &.puzzle-master-100 .icon,
+            &.comeback-victory .icon {
+                background-image: url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=silver%20trophy%20cup%20icon%20for%20technical%20achievement%20in%20go%20game&image_size=square_hd");
+            }
+
+            &.join-group .icon,
+            &.create-club .icon,
+            &.ten-reviews .icon {
+                background-image: url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=group%20of%20people%20icon%20for%20social%20achievement%20in%20go%20game%20community&image_size=square_hd");
+            }
+
+            &.instant-win .icon,
+            &.handicap-perfect .icon {
+                background-image: url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=diamond%20gem%20icon%20legendary%20achievement%20in%20go%20game%20shiny%20precious&image_size=square_hd");
+            }
+        }
+
+        .achievement-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .rarity-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-description {
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .achievement-date,
+        .achievement-details {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+
+            i {
+                font-size: 0.875rem;
+            }
+        }
+
+        .view-game-link {
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: #2563eb;
+            }
+
+            i {
+                font-size: 0.875rem;
+            }
+        }
+    }
 }

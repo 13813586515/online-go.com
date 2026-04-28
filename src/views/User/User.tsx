@@ -48,7 +48,8 @@ import { RatingsChartByGame } from "@/components/RatingsChartByGame";
 import { RatingsChartDistribution } from "@/components/RatingsChartDistribution";
 import { associations } from "@/lib/associations";
 import { Toggle } from "@/components/Toggle";
-import { AchievementList } from "@/components/Achievements";
+import { AchievementList, AchievementDetailModal } from "@/components/Achievements";
+import { UserAchievement } from "@/lib/achievements";
 import { VersusCard } from "./VersusCard";
 import { AvatarCard, AvatarCardEditableFields } from "./AvatarCard";
 import { ActivityCard } from "./ActivityCard";
@@ -102,6 +103,7 @@ export function User(props: { user_id?: number }): React.ReactElement {
     const [titles, setTitles] = React.useState<rest_api.FullPlayerDetail["titles"]>();
     const [trophies, setTrophies] = React.useState<rest_api.FullPlayerDetail["trophies"]>();
     const [vs, setVs] = React.useState<rest_api.FullPlayerDetail["vs"]>();
+    const [selected_achievement, setSelectedAchievement] = React.useState<UserAchievement | null>(null);
 
     const resolve = (user_id: number) => {
         setUser(undefined);
@@ -561,7 +563,12 @@ export function User(props: { user_id?: number }): React.ReactElement {
                             {achievements != null && achievements.length > 0 && (
                                 <Card>
                                     <h3>{_("Achievements")}</h3>
-                                    <AchievementList list={achievements} />
+                                    <AchievementList
+                                        list={achievements}
+                                        onAchievementClick={(achievement) =>
+                                            setSelectedAchievement(achievement)
+                                        }
+                                    />
                                 </Card>
                             )}
 
@@ -698,6 +705,10 @@ export function User(props: { user_id?: number }): React.ReactElement {
                 {/* end right col  */}
             </div>
         </div>
+        <AchievementDetailModal
+            achievement={selected_achievement}
+            onClose={() => setSelectedAchievement(null)}
+        />
     );
 }
 

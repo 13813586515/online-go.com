@@ -197,7 +197,7 @@ declare namespace rest_api {
             block_chat: boolean;
             block_games: boolean;
         };
-        achievements: any[];
+        achievements: import("../lib/types").UserAchievement[];
         ip?: string;
     }
 
