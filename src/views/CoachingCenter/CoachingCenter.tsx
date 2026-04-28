@@ -36,41 +36,29 @@ export function CoachingCenter(): React.ReactElement {
 
     const [activeTab, setActiveTab] = React.useState<TabType>("overview");
     const [userRole, setUserRole] = React.useState<UserRole>("both");
-    const [loading, setLoading] = React.useState(false);
-    const [apiAvailable, setApiAvailable] = React.useState(true);
-
-    React.useEffect(() => {
-        checkApiAvailability();
-    }, []);
+    const [apiAvailable, setApiAvailable] = React.useState(false);
+    const [checkingApi, setCheckingApi] = React.useState(false);
 
     const checkApiAvailability = async () => {
         try {
-            setLoading(true);
-            const testResult = await get("coaching/stats/coach");
-            console.log("API test result:", testResult);
+            setCheckingApi(true);
+            await get("coaching/stats/coach");
             setApiAvailable(true);
+            alert.fire({ title: _("API connected successfully!") });
         } catch (err) {
-            console.warn("Coaching API not available, running in demo mode:", err);
             setApiAvailable(false);
+            alert.fire({
+                title: _("API not available"),
+                text: _("Coaching API endpoints are not implemented yet. Continuing in demo mode."),
+                icon: "warning",
+            });
         } finally {
-            setLoading(false);
+            setCheckingApi(false);
         }
     };
 
     const isCoach = userRole === "coach" || userRole === "both";
     const isStudent = userRole === "student" || userRole === "both";
-
-    if (loading) {
-        return (
-            <div className="CoachingCenter container">
-                <Card>
-                    <div style={{ textAlign: "center", padding: "2rem" }}>
-                        {_("Loading...")}
-                    </div>
-                </Card>
-            </div>
-        );
-    }
 
     return (
         <div className="CoachingCenter container">
@@ -79,8 +67,15 @@ export function CoachingCenter(): React.ReactElement {
                     <div className="warning-content">
                         <i className="fa fa-info-circle" />
                         <span>
-                            {_("Running in demo mode - Coaching API is not available")}
+                            {_("Demo Mode - Coaching API is not connected")}
                         </span>
+                        <button
+                            className="sm"
+                            onClick={checkApiAvailability}
+                            disabled={checkingApi}
+                        >
+                            {checkingApi ? _("Checking...") : _("Connect to API")}
+                        </button>
                     </div>
                     <div className="role-selector">
                         <span>{_("View as:")}</span>
