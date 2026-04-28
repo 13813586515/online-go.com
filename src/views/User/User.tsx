@@ -353,6 +353,7 @@ export function User(props: { user_id?: number }): React.ReactElement {
         !preferences.get("rating-graph-always-use") && !user?.need_rank;
 
     return (
+        <>
         <div className="User container">
             <div>
                 <div className="profile-card">
@@ -709,6 +710,7 @@ export function User(props: { user_id?: number }): React.ReactElement {
             achievement={selected_achievement}
             onClose={() => setSelectedAchievement(null)}
         />
+        </>
     );
 }
 
