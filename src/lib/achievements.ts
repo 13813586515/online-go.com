@@ -17,7 +17,7 @@
 
 import { AchievementDefinition, AchievementCategory, UserAchievement } from "./types";
 
-export { AchievementDefinition, AchievementCategory, UserAchievement };
+export type { AchievementDefinition, AchievementCategory, UserAchievement };
 
 export const ACHIEVEMENT_DEFINITIONS: { [key: string]: AchievementDefinition } = {
     "first-game": {
