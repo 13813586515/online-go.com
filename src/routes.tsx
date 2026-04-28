@@ -91,6 +91,7 @@ import { PrizeRedemption, SponsorshipRequest } from "@/views/Prizes";
 import { PrizeBatchList, PrizeBatch, SponsorshipRequestDetail } from "@moderator-ui/Prizes";
 import { GoTV } from "@/views/GoTV";
 import { Loading } from "@/components/Loading";
+import { CoachingCenter } from "@/views/CoachingCenter";
 
 import * as docs from "@/views/docs";
 import { useData } from "./lib/hooks";
@@ -366,6 +367,8 @@ export const routes = (
                 <Route path="/donate" element={<Supporter />} />
                 <Route path="/library/:player_id/:collection_id" element={<LibraryPlayer />} />
                 <Route path="/library/:player_id" element={<LibraryPlayer />} />
+                <Route path="/coaching" element={<CoachingCenter />} />
+                <Route path="/coaching/:tab" element={<CoachingCenter />} />
                 <Route path="/groups" element={<GroupList />} />
                 <Route path="/group/create" element={<GroupCreate />} />
                 <Route path="/group/:group_id" element={<Group />} />

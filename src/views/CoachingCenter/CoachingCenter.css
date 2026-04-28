@@ -1,0 +1,433 @@
+/*
+ * Copyright (C)  Online-Go.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.CoachingCenter {
+    padding: 1rem 0;
+
+    .tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.5rem;
+
+        button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px 4px 0 0;
+            background: var(--bg-color);
+            cursor: pointer;
+            margin-bottom: -1px;
+
+            &:hover {
+                background: var(--hover-bg-color);
+            }
+
+            &.active {
+                border-bottom-color: var(--bg-color);
+                background: var(--bg-color);
+                font-weight: bold;
+            }
+        }
+    }
+
+    .tab-content {
+        min-height: 400px;
+    }
+
+    .overview {
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+
+            .stat-item {
+                text-align: center;
+                padding: 1rem;
+
+                .stat-value {
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: var(--primary-color);
+                }
+
+                .stat-label {
+                    margin-top: 0.5rem;
+                    color: var(--text-color-secondary);
+                }
+            }
+        }
+
+        .quick-actions {
+            h3 {
+                margin-bottom: 1rem;
+            }
+
+            .action-buttons {
+                display: flex;
+                gap: 1rem;
+            }
+        }
+    }
+
+    .tab-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        h2 {
+            margin: 0;
+        }
+    }
+
+    .section {
+        margin-bottom: 2rem;
+
+        h3 {
+            margin-bottom: 1rem;
+            color: var(--text-color-secondary);
+        }
+    }
+
+    .invite-form,
+    .create-assignment-form {
+        margin-bottom: 2rem;
+
+        .form-group {
+            margin-bottom: 1rem;
+
+            label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: bold;
+            }
+
+            input,
+            textarea,
+            select {
+                width: 100%;
+                padding: 0.5rem;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                background: var(--input-bg-color);
+                color: var(--text-color);
+
+                &:focus {
+                    outline: none;
+                    border-color: var(--primary-color);
+                }
+            }
+
+            textarea {
+                min-height: 80px;
+                resize: vertical;
+            }
+
+            .selected-player {
+                margin-top: 0.5rem;
+                padding: 0.5rem;
+                background: var(--hover-bg-color);
+                border-radius: 4px;
+            }
+
+            .question-row {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 0.5rem;
+                align-items: center;
+
+                input[type="text"] {
+                    flex: 1;
+                }
+
+                select {
+                    width: auto;
+                    min-width: 150px;
+                }
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+
+        .modal {
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+
+            h3 {
+                margin-top: 0;
+            }
+
+            .modal-actions {
+                display: flex;
+                gap: 1rem;
+                justify-content: flex-end;
+                margin-top: 1rem;
+            }
+        }
+    }
+
+    .status-pending {
+        color: var(--warning-color);
+        font-weight: bold;
+    }
+
+    .status-active {
+        color: var(--success-color);
+        font-weight: bold;
+    }
+
+    .status-rejected,
+    .status-terminated {
+        color: var(--danger-color);
+        font-weight: bold;
+    }
+
+    .status-assigned,
+    .status-started {
+        color: var(--warning-color);
+        font-weight: bold;
+    }
+
+    .status-completed,
+    .status-reviewed {
+        color: var(--success-color);
+        font-weight: bold;
+    }
+
+    .won {
+        color: var(--success-color);
+        font-weight: bold;
+    }
+
+    .chat-tab {
+        .chat-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 1rem;
+            min-height: 500px;
+        }
+
+        .chat-list {
+            h3 {
+                margin-bottom: 1rem;
+            }
+
+            .empty-state {
+                text-align: center;
+                padding: 2rem;
+                color: var(--text-color-secondary);
+            }
+
+            .contact-list {
+                .contact-item {
+                    padding: 0.75rem;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    margin-bottom: 0.25rem;
+
+                    &:hover {
+                        background: var(--hover-bg-color);
+                    }
+
+                    &.active {
+                        background: var(--primary-color);
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        .chat-window {
+            .empty-state {
+                text-align: center;
+                padding: 4rem 2rem;
+                color: var(--text-color-secondary);
+            }
+
+            .chat-container {
+                display: flex;
+                flex-direction: column;
+                height: 600px;
+
+                .chat-header {
+                    padding: 1rem;
+                    border-bottom: 1px solid var(--border-color);
+                }
+
+                .chat-messages {
+                    flex: 1;
+                    overflow-y: auto;
+                    padding: 1rem;
+
+                    .chat-message {
+                        margin-bottom: 1rem;
+                        display: flex;
+                        flex-direction: column;
+
+                        &.own {
+                            align-items: flex-end;
+
+                            .message-content {
+                                background: var(--primary-color);
+                                color: white;
+                            }
+                        }
+
+                        &.other {
+                            align-items: flex-start;
+
+                            .message-content {
+                                background: var(--hover-bg-color);
+                            }
+                        }
+
+                        .message-sender {
+                            margin-bottom: 0.25rem;
+                            font-size: 0.875rem;
+                        }
+
+                        .message-content {
+                            padding: 0.75rem 1rem;
+                            border-radius: 1rem;
+                            max-width: 70%;
+                            word-wrap: break-word;
+                        }
+
+                        .message-time {
+                            font-size: 0.75rem;
+                            color: var(--text-color-secondary);
+                            margin-top: 0.25rem;
+                        }
+                    }
+                }
+
+                .chat-input {
+                    padding: 1rem;
+                    border-top: 1px solid var(--border-color);
+                    display: flex;
+                    gap: 0.5rem;
+
+                    textarea {
+                        flex: 1;
+                        padding: 0.75rem;
+                        border: 1px solid var(--border-color);
+                        border-radius: 20px;
+                        resize: none;
+                        min-height: 40px;
+                        max-height: 120px;
+
+                        &:focus {
+                            outline: none;
+                            border-color: var(--primary-color);
+                        }
+                    }
+
+                    button {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .tabs {
+            flex-wrap: wrap;
+
+            button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        .overview {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-actions {
+                .action-buttons {
+                    flex-direction: column;
+                }
+            }
+        }
+
+        .chat-tab {
+            .chat-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-list {
+                .contact-list {
+                    display: flex;
+                    overflow-x: auto;
+                    gap: 0.5rem;
+                    padding-bottom: 0.5rem;
+
+                    .contact-item {
+                        white-space: nowrap;
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .create-assignment-form {
+            .form-group {
+                .question-row {
+                    flex-direction: column;
+                    align-items: stretch;
+
+                    select {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
