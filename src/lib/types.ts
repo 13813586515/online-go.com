@@ -138,3 +138,27 @@ export interface GobanInfoStateBase {
 }
 
 export type CommonChangeEvent = React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>;
+
+export type AchievementCategory = "novice" | "technical" | "social" | "rare";
+
+export interface AchievementDefinition {
+    id: string;
+    name: string;
+    description: string;
+    category: AchievementCategory;
+    icon?: string;
+    rarity?: "common" | "uncommon" | "rare" | "legendary";
+}
+
+export interface UserAchievement {
+    name: string;
+    nth_time_awarded: number;
+    timestamp: string;
+    completed: boolean;
+    progress: number;
+    game_id?: number;
+    puzzle_id?: number;
+    group_id?: number;
+    review_id?: number;
+    details?: string;
+}
